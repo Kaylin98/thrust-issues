@@ -1,16 +1,57 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] InputAction thrust;
+    [SerializeField] InputAction rotation;
+    Rigidbody rb;
+
+    [SerializeField] float thrustForce = 1000f;
+    [SerializeField] float rotationForce = 100f;
+
+    void OnEnable()
+    {
+        thrust.Enable();
+        rotation.Enable();
+    }
+    
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        ProcessThrust();
+        ProcessRotation();
+    }
+
+    private void ProcessThrust()
+    {
+        if (thrust.IsPressed())
+        {
+            rb.AddRelativeForce(Vector3.up * thrustForce * Time.fixedDeltaTime);
+        }
+    }
+
+    private void ProcessRotation()
+    {
+        float rotationInput = rotation.ReadValue<float>();
+
+        if (rotationInput < 0)
+        {
+            ApplyRotation(rotationForce);
+        }
+        else if (rotationInput > 0)
+        {
+            ApplyRotation(-rotationForce);
+        }
+       
+    }
+
+    private void ApplyRotation(float rotationThisFrame)
+    {
+        transform.Rotate(Vector3.forward * rotationThisFrame * Time.fixedDeltaTime);
     }
 }
