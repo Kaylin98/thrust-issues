@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -18,8 +19,14 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("Collided with Fuel object. Refueling!");
                 break;
             default:
-                Debug.Log("Collided with an obstacle. Game Over!");
+                ReloadLevel();
                 break;
         }
     }
+
+    void ReloadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }   
 }
