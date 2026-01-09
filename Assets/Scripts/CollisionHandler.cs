@@ -13,7 +13,7 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("Collided with Friendly object.");
                 break;
             case "Finish":
-                Debug.Log("Collided with Finish object. Level Complete!");
+                LoadNextLevel();
                 break;
             case "Fuel":
                 Debug.Log("Collided with Fuel object. Refueling!");
@@ -22,6 +22,17 @@ public class CollisionHandler : MonoBehaviour
                 ReloadLevel();
                 break;
         }
+    }
+
+    void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     void ReloadLevel()
