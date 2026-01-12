@@ -10,6 +10,8 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
 
+    bool isControllable = true;
+
     private void Start() 
     {
         audioSource = GetComponent<AudioSource>();
@@ -17,8 +19,9 @@ public class CollisionHandler : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        string ObjectTag = collision.gameObject.tag;
-        
+        if (!isControllable) { return; }
+
+        string ObjectTag = collision.gameObject.tag;        
         switch (ObjectTag)
         {
             case "Friendly":
@@ -38,6 +41,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void StartSuccessSequence()
     {
+        isControllable = false;
+        audioSource.Stop();
         audioSource.PlayOneShot(successSound);
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", delayBeforeReload);
@@ -45,6 +50,8 @@ public class CollisionHandler : MonoBehaviour
 
     void StartCrashSequence()
     {
+        isControllable = false;
+        audioSource.Stop();
         audioSource.PlayOneShot(crashSound);
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", delayBeforeReload);
