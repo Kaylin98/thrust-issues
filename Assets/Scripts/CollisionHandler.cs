@@ -1,20 +1,24 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class CollisionHandler : MonoBehaviour
 {
+    [Header("Level Settings")]
     [SerializeField] float delayBeforeReload = 2f;
+
+    [Header("Audio Assets")]
     [SerializeField] AudioClip successSound;
     [SerializeField] AudioClip crashSound;
+
+    [Header("VFX Particles")]
     [SerializeField] ParticleSystem successParticles;
     [SerializeField] ParticleSystem crashParticles;
 
     AudioSource audioSource;
-
     bool isControllable = true;
 
-    private void Start() 
+    void Start() 
     {
         audioSource = GetComponent<AudioSource>();
     }
@@ -23,8 +27,7 @@ public class CollisionHandler : MonoBehaviour
     {
         if (!isControllable) { return; }
 
-        string ObjectTag = collision.gameObject.tag;        
-        switch (ObjectTag)
+        switch (collision.gameObject.tag)
         {
             case "Friendly":
                 Debug.Log("Collided with Friendly object.");
@@ -41,7 +44,7 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
-    private void StartSuccessSequence()
+    void StartSuccessSequence()
     {
         isControllable = false;
         audioSource.Stop();
@@ -59,23 +62,23 @@ public class CollisionHandler : MonoBehaviour
         crashParticles.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", delayBeforeReload);
-        
     }
 
     void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
+        
         if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
         {
             nextSceneIndex = 0;
         }
+        
         SceneManager.LoadScene(nextSceneIndex);
     }
 
     void ReloadLevel()
     {
-        
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }   
