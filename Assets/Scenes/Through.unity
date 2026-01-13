@@ -638,6 +638,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5283498614851784466, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b779f7e2c3399fc4099490d07a002344, type: 2}
     - target: {fileID: 5931871343777541831, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
       propertyPath: m_Name
       value: Landing Pad

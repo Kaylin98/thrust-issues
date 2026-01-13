@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d1858b0160eb6c5499b44a4a12b06849, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -638,13 +638,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5283498614851784466, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b779f7e2c3399fc4099490d07a002344, type: 2}
     - target: {fileID: 5931871343777541831, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
       propertyPath: m_Name
       value: Landing Pad
-      objectReference: {fileID: 0}
-    - target: {fileID: 5931871343777541831, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
-      propertyPath: m_TagString
-      value: Finish
       objectReference: {fileID: 0}
     - target: {fileID: 6420423480816022653, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
       propertyPath: m_LocalPosition.x
@@ -932,10 +932,6 @@ PrefabInstance:
     - target: {fileID: 5931871343777541831, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
       propertyPath: m_Name
       value: Launch Pad
-      objectReference: {fileID: 0}
-    - target: {fileID: 5931871343777541831, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
-      propertyPath: m_TagString
-      value: Friendly
       objectReference: {fileID: 0}
     - target: {fileID: 6420423480816022653, guid: 361d31bd2aef3b74492410136b704f31, type: 3}
       propertyPath: m_LocalPosition.x
