@@ -12,7 +12,10 @@ public class Movement : MonoBehaviour
     [SerializeField] float rotationForce = 100f;
 
     [Header("Audio Assets")]
+    [SerializeField] AudioSource mainAudioSource;
+    [SerializeField] AudioSource sideThrusterAudioSource;
     [SerializeField] AudioClip mainEngineSound;
+    [SerializeField] AudioClip rotationSound;
 
     [Header("VFX Particles")]
     [SerializeField] ParticleSystem mainEngineParticles;
@@ -20,8 +23,8 @@ public class Movement : MonoBehaviour
     [SerializeField] ParticleSystem rightThrusterParticles;
 
     Rigidbody rb;
-    AudioSource audioSource;
-   
+    
+
     void OnEnable()
     {
         thrust.Enable();
@@ -31,7 +34,6 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -56,9 +58,12 @@ public class Movement : MonoBehaviour
     {
         rb.AddRelativeForce(Vector3.up * thrustForce * Time.fixedDeltaTime);
         
-        if (!audioSource.isPlaying)
+        // Only checking the MAIN audio source
+        if (!mainAudioSource.isPlaying)
         {
-            audioSource.PlayOneShot(mainEngineSound);
+            // Using Play() instead of PlayOneShot for continuous engine loops
+            mainAudioSource.clip = mainEngineSound;
+            mainAudioSource.Play();
         }
         if (!mainEngineParticles.isPlaying)
         {
@@ -68,7 +73,7 @@ public class Movement : MonoBehaviour
 
     private void StopThrusting()
     {
-        audioSource.Stop();
+        mainAudioSource.Stop();
         mainEngineParticles.Stop();
     }
 
@@ -98,6 +103,13 @@ public class Movement : MonoBehaviour
             leftThrusterParticles.Stop();
             rightThrusterParticles.Play();
         }
+        
+        // Using the SECOND audio source
+        if (!sideThrusterAudioSource.isPlaying)
+        {
+            sideThrusterAudioSource.clip = rotationSound;
+            sideThrusterAudioSource.Play();
+        }
     }
 
     private void RotateLeft()
@@ -108,18 +120,27 @@ public class Movement : MonoBehaviour
             rightThrusterParticles.Stop();
             leftThrusterParticles.Play();
         }
+
+        // Using the SECOND audio source
+        if (!sideThrusterAudioSource.isPlaying)
+        {
+            sideThrusterAudioSource.clip = rotationSound;
+            sideThrusterAudioSource.Play();
+        }
     }
 
     private void StopRotating()
     {
         leftThrusterParticles.Stop();
         rightThrusterParticles.Stop();
+        
+        sideThrusterAudioSource.Stop();
     }
 
     private void ApplyRotation(float rotationThisFrame)
     {
         rb.freezeRotation = true; 
         transform.Rotate(Vector3.forward * rotationThisFrame * Time.fixedDeltaTime);
-        rb.freezeRotation = false; 
+        rb.freezeRotation = false;    
     }
 }
