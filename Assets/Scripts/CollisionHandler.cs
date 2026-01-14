@@ -1,6 +1,5 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // You don't actually need this namespace here anymore if you use the new Input System in Movement.cs, but it doesn't hurt.
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
@@ -25,6 +24,7 @@ public class CollisionHandler : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
+
     void Update()
     {
         #if UNITY_EDITOR
@@ -72,7 +72,7 @@ public class CollisionHandler : MonoBehaviour
     void StartSuccessSequence()
     {
         isControllable = false;
-        audioSource.Stop();
+        StopAllAudio();
         audioSource.PlayOneShot(successSound);
         successParticles.Play();
         GetComponent<Movement>().enabled = false;
@@ -82,11 +82,20 @@ public class CollisionHandler : MonoBehaviour
     void StartCrashSequence()
     {
         isControllable = false;
-        audioSource.Stop();
+        StopAllAudio(); 
         audioSource.PlayOneShot(crashSound);
         crashParticles.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", delayBeforeReload);
+    }
+
+    void StopAllAudio()
+    {
+        AudioSource[] allAudioSources = GetComponents<AudioSource>();
+        foreach (AudioSource source in allAudioSources)
+        {
+            source.Stop();
+        }
     }
 
     void LoadNextLevel()
