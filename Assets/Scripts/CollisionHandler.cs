@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // You don't actually need this namespace here anymore if you use the new Input System in Movement.cs, but it doesn't hurt.
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
@@ -55,13 +55,9 @@ public class CollisionHandler : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("Collided with Friendly object.");
                 break;
             case "Finish":
                 StartSuccessSequence();
-                break;
-            case "Fuel":
-                Debug.Log("Collided with Fuel object. Refueling!");
                 break;
             default:
                 StartCrashSequence();
