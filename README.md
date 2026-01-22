@@ -11,13 +11,13 @@
 ---
 
 ## 🎮 Play The Game
-**[👉 CLICK HERE TO LAUNCH (AND CRASH) 👈](https://play.unity.com/api/v1/games/game/71f937f3-98ad-4738-a735-3c86a0bba254/build/latest/frame)**
+**[👉 CLICK HERE TO LAUNCH (AND CRASH) 👈](https://play.unity.com/en/games/71f937f3-98ad-4738-a735-3c86a0bba254/thrust-issues)**
 
 ---
 
 ## 🎥 Gameplay
-![Thrust Issues Gameplay](YOUR_GIF_LINK_HERE)
-*(Add your GIF link above to show off the chaos)*
+
+https://github.com/user-attachments/assets/70befcbe-78bb-4b37-a5ce-0f0976833338
 
 ---
 
